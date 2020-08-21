@@ -4,17 +4,17 @@ filetype plugin indent on
 
 syntax enable
 
-source ~/.vimrc.Set
-source ~/.vimrc.FunctionKey
-source ~/.vimrc.CustomCommands
-source ~/.vimrc.Functions
-source ~/.vimrc.VimPowerLine
-"source ~/.vimrc.NerdTree
-source ~/.vimrc.AutoCMD
-source ~/.vimrc.Vundle
-source ~/.vimrc.Colors
-source ~/.vimrc.Settings
-source ~/.vimrc.tmp
+source ~/.dotfiles/.vim/.vimrc.Set
+source ~/.dotfiles/.vim/.vimrc.FunctionKey
+source ~/.dotfiles/.vim/.vimrc.CustomCommands
+source ~/.dotfiles/.vim/.vimrc.Functions
+source ~/.dotfiles/.vim/.vimrc.VimPowerLine
+source ~/.dotfiles/.vim/.vimrc.AutoCMD
+source ~/.dotfiles/.vim/.vimrc.Vundle
+source ~/.dotfiles/.vim/.vimrc.Colors
+source ~/.dotfiles/.vim/.vimrc.Settings
+source ~/.dotfiles/.vim/.vimrc.tmp
+source ~/.dotfiles/.vim/.vimrc.NerdTree
 
 set encoding=UTF-8
 set textwidth=10000
