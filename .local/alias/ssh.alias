@@ -1,0 +1,1 @@
+alias MYMACHINE='sshpass -p '<PASSWORD>' ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no <user><IPADDRESS>'

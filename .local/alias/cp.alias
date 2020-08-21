@@ -1,0 +1,1 @@
+alias cpv='rsync -ah --info=progress2'

@@ -1,0 +1,2 @@
+alias untar='tar -zxvf '
+

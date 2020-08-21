@@ -1,0 +1,2 @@
+alias beep="echo -ne '\007';sleep 1;  echo -ne '\007'; sleep 1; echo -ne '\007'; sleep 1; echo -ne '\007'; sleep 0.1; echo -ne '\007'; sleep 0.1; echo -ne '\007'; sleep 4; echo -ne '\007'"
+
