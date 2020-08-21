@@ -1,1 +1,1 @@
-alias nlssgtok=""sudo docker run -d -e REINDEX=30 -v /home/jaimin/<SOURCECODEPATH>:/opengrok/src -p 8080:8080 opengrok/docker:latest""
+alias codegrok=""sudo docker run -d -e REINDEX=30 -v /home/user/<PATH_TO_ROOT_OF_SOURCE>:/opengrok/src -p 8080:8080 opengrok/docker:latest""
