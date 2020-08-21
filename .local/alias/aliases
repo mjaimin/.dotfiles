@@ -8,9 +8,7 @@ source ~/.dotfiles/.local/alias/ports.alias
 source ~/.dotfiles/.local/alias/tar.alias
 source ~/.dotfiles/.local/alias/vim.alias
 source ~/.dotfiles/.local/alias/wget.alias
-source ~/.dotfiles/.local/alias/secure.alias
 source ~/.dotfiles/.local/alias/curl.alias
-source ~/.dotfiles/.local/alias/ssh.alias
 source ~/.dotfiles/.local/alias/beep.alias
 source ~/.dotfiles/.local/alias/history.alias
 source ~/.dotfiles/.local/alias/mount.alias
