@@ -100,11 +100,6 @@ Plugin 'rosenfeld/conque-term'              " Consoles as buffers
 Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
 Plugin 'flazz/vim-colorschemes'             " Colorschemes
 
-"-------------------=== Snippets support ===--------------------
-Plugin 'garbas/vim-snipmate'                " Snippets manager
-Plugin 'MarcWeber/vim-addon-mw-utils'       " dependencies #1
-Plugin 'tomtom/tlib_vim'                    " dependencies #2
-Plugin 'honza/vim-snippets'                 " snippets repo
 
 Plugin 'preservim/nerdtree'
 Plugin 'preservim/nerdcommenter'
