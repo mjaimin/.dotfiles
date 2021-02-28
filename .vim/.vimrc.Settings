@@ -24,7 +24,7 @@ command! BufferList call BufferList()
 "
 map <S-Insert> <MiddleMouse>
 
-nnoremap gf <C-W>f
+nnoremap gf <C-W>gf
 
 "noremap <leader>gf :e <cfile><cr>
 
