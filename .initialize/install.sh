@@ -22,3 +22,5 @@ mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmu
 
 [ ! -f ~/.dotfiles/.vim/.vimrc.native.orig ] && mv ~/.vimrc ~/.dotfiles/.vim/.vimrc.native.orig && cp ~/.dotfiles/.vim/.vimrc.for.home ~/.vimrc
 
+[ ! -f /etc/profile.d/external_monitor_resol.sh ] && sudo cp ~/.dotfiles/monitor/etc/profile.d/external_monitor_resol.sh /etc/profile.d/external_monitor_resol.sh
+
