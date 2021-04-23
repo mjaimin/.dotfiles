@@ -1,8 +1,10 @@
 set -x
-#sudo apt-get -y install git
+sudo apt-get -y install git vim
+
 mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmux/plugins/tmux-cpu/ ~/.tmux/plugins/tmux-net-speed/ ~/.tmux/plugins/tmux-copycat/ ~/.tmux/plugins/tmux-online-status ~/.tmux/plugins/tmux-open ~/.tmux/plugins/tmux-plugin-sysstat ~/.tmux/plugins/tmux-prefix-highlight ~/.tmux/plugins/tmux-sidebar ~/.tmux/plugins/tpm
 [ ! -f ~/.bash/bash-it/LICENSE ] &&  git clone https://github.com/mjaimin/bash-it.git ~/.bash/bash-it/
-[ ! -f ~/.vim/bundle/Vundle.vim/LICENSE-MIT.txt ] && git clone https://github.com/mjaimin/Vundle.vim.git ~/.vim/bundle/Vundle.vim/
+[ ! -f ~/.vim/bundle/Vundle.vim/LICENSE-MIT.txt ] && git clone https://github.com/mjaimin/Vundle.vim.git ~/.vim/bundle/Vundle.vim/ && mkdir -pv tmp && git clone https://github.com/morhetz/gruvbox.git tmp && mv  tmp/autoload/ tmp/colors/ ~/.vim/ && rm -rf tmp/
+[ ! -f ~/.vim/colors/gruvbox.vim ] && git clone https://github.com/morhetz/gruvbox.git tmp && mv  tmp/autoload/ tmp/colors/ ~/.vim/ && rm -rf tmp/
 [ ! -f ~/.tmux/plugins/tmux-battery/LICENSE.md ] && git clone https://github.com/tmux-plugins/tmux-battery.git ~/.tmux/plugins/tmux-battery/
 [ ! -f ~/.tmux/plugins/tmux-cpu/LICENSE ] && git clone https://github.com/tmux-plugins/tmux-cpu.git ~/.tmux/plugins/tmux-cpu/
 [ ! -f ~/.tmux/plugins/tmux-net-speed/LICENSE ] && git clone https://github.com/tmux-plugins/tmux-net-speed.git ~/.tmux/plugins/tmux-net-speed/
@@ -14,11 +16,9 @@ mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmu
 [ ! -f ~/.tmux/plugins/tmux-open/LICENSE.md ] && git clone https://github.com/tmux-plugins/tmux-open.git ~/.tmux/plugins/tmux-open/
 [ ! -f ~/.tmux/plugins/tpm/LICENSE.md ] && git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm/
 
-#mv ~/.bashrc   ~/.dotfiles/.bash/.bashrc.native.orig
-#cp ~/.dotfiles/.bash/.bashrc.for.home ~/.bashrc
-#
-[ ! -f ~/.dotfiles/.tmux/.tmux.conf.native.orig ] && mv ~/.tmux.conf ~/.dotfiles/.tmux/.tmux.conf.native.orig
-cp ~/.dotfiles/.tmux/.tmux.conf.for.home ~/.tmux.conf
+[ ! -f ~/.dotfiles/.bash/.bashrc.native.orig ] && mv ~/.bashrc   ~/.dotfiles/.bash/.bashrc.native.orig && cp ~/.dotfiles/.bash/.bashrc.for.home ~/.bashrc
 
-[ ! -f ~/.dotfiles/.vim/.vimrc.native.orig ] && mv ~/.vimrc ~/.dotfiles/.vim/.vimrc.native.orig
-cp ~/.dotfiles/.vim/.vimrc.for.home ~/.vimrc
+[ ! -f ~/.dotfiles/.tmux/.tmux.conf.native.orig ] && mv ~/.tmux.conf ~/.dotfiles/.tmux/.tmux.conf.native.orig && cp ~/.dotfiles/.tmux/.tmux.conf.for.home ~/.tmux.conf
+
+[ ! -f ~/.dotfiles/.vim/.vimrc.native.orig ] && mv ~/.vimrc ~/.dotfiles/.vim/.vimrc.native.orig && cp ~/.dotfiles/.vim/.vimrc.for.home ~/.vimrc
+
