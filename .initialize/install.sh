@@ -1,5 +1,7 @@
 set -x
-sudo apt-get -y install git vim
+sudo add-apt-repository ppa:agornostal/ulauncher -y
+apt-get update
+sudo apt-get -y install git vim ulauncher latte-dock
 
 mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmux/plugins/tmux-cpu/ ~/.tmux/plugins/tmux-net-speed/ ~/.tmux/plugins/tmux-copycat/ ~/.tmux/plugins/tmux-online-status ~/.tmux/plugins/tmux-open ~/.tmux/plugins/tmux-plugin-sysstat ~/.tmux/plugins/tmux-prefix-highlight ~/.tmux/plugins/tmux-sidebar ~/.tmux/plugins/tpm
 [ ! -f ~/.bash/bash-it/LICENSE ] &&  git clone https://github.com/mjaimin/bash-it.git ~/.bash/bash-it/
@@ -24,3 +26,6 @@ mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmu
 
 [ ! -f /etc/profile.d/external_monitor_resol.sh ] && sudo cp ~/.dotfiles/monitor/etc/profile.d/external_monitor_resol.sh /etc/profile.d/external_monitor_resol.sh
 
+cp ~/.dotfiles/.config/autostart/ulauncher.desktop ~/.config/autostart/
+cp ~/.dotfiles/.config/autostart/org.kde.latte-dock.desktop ~/.config/autostart/
+cp ~/.dotfiles/.config/ulauncher ~/.dotfiles/.config/ulauncher
