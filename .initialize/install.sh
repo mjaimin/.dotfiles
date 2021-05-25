@@ -1,8 +1,11 @@
 set -x
+touch ~/.tmux.conf ~/.bashrc ~/.vimrc
 sudo add-apt-repository ppa:christian-boxdoerfer/fsearch-daily -y
 sudo add-apt-repository ppa:agornostal/ulauncher -y
 apt-get update
 sudo apt-get -y install git vim ulauncher latte-dock fsearch-trunk ctags
+
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmux/plugins/tmux-cpu/ ~/.tmux/plugins/tmux-net-speed/ ~/.tmux/plugins/tmux-copycat/ ~/.tmux/plugins/tmux-online-status ~/.tmux/plugins/tmux-open ~/.tmux/plugins/tmux-plugin-sysstat ~/.tmux/plugins/tmux-prefix-highlight ~/.tmux/plugins/tmux-sidebar ~/.tmux/plugins/tpm
 [ ! -f ~/.bash/bash-it/LICENSE ] &&  git clone https://github.com/mjaimin/bash-it.git ~/.bash/bash-it/
@@ -25,7 +28,9 @@ mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmu
 
 [ ! -f ~/.dotfiles/.vim/.vimrc.native.orig ] && mv ~/.vimrc ~/.dotfiles/.vim/.vimrc.native.orig && cp ~/.dotfiles/.vim/.vimrc.for.home ~/.vimrc
 
-[ ! -f /etc/profile.d/external_monitor_resol.sh ] && sudo cp ~/.dotfiles/monitor/etc/profile.d/external_monitor_resol.sh /etc/profile.d/external_monitor_resol.sh
+[ ! -f ~/.dotfiles/.zsh/.zshrc.native.orig ] && mv ~/.zshrc   ~/.dotfiles/.zsh/.zshrc.native.orig && cp ~/.dotfiles/.zsh/.zshrc.for.home  ~/.zshrc
+
+#[ ! -f /etc/profile.d/external_monitor_resol.sh ] && sudo cp ~/.dotfiles/monitor/etc/profile.d/external_monitor_resol.sh /etc/profile.d/external_monitor_resol.sh
 
 cp ~/.dotfiles/.config/autostart/ulauncher.desktop ~/.config/autostart/
 cp ~/.dotfiles/.config/autostart/org.kde.latte-dock.desktop ~/.config/autostart/
