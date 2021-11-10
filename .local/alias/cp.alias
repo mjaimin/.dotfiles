@@ -1,1 +1,1 @@
-alias cpv='rsync -ah --info=progress2'
+alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --" # copy with a progress bar.
