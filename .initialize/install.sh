@@ -2,6 +2,7 @@ set -x
 touch ~/.tmux.conf ~/.bashrc ~/.vimrc
 sudo add-apt-repository ppa:christian-boxdoerfer/fsearch-stable -y
 sudo add-apt-repository ppa:agornostal/ulauncher -y
+#/usr/share/ulauncher/ui/UlauncherWindow.ui change <property name="width_request">600</property> value to 2000
 apt-get update
 sudo apt-get -y install git vim ulauncher latte-dock fsearch universal-ctags
 
