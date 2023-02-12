@@ -1,15 +1,15 @@
 set -x
 touch ~/.tmux.conf ~/.bashrc ~/.vimrc
-sudo add-apt-repository ppa:christian-boxdoerfer/fsearch-daily -y
+sudo add-apt-repository ppa:christian-boxdoerfer/fsearch-stable -y
 sudo add-apt-repository ppa:agornostal/ulauncher -y
 apt-get update
-sudo apt-get -y install git vim ulauncher latte-dock fsearch-trunk ctags
+sudo apt-get -y install git vim ulauncher latte-dock fsearch universal-ctags
 
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 mkdir -pv ~/.bash/bash-it/ ~/.tmux/plugins/ ~/.tmux/plugins/tmux-battery/ ~/.tmux/plugins/tmux-cpu/ ~/.tmux/plugins/tmux-net-speed/ ~/.tmux/plugins/tmux-copycat/ ~/.tmux/plugins/tmux-online-status ~/.tmux/plugins/tmux-open ~/.tmux/plugins/tmux-plugin-sysstat ~/.tmux/plugins/tmux-prefix-highlight ~/.tmux/plugins/tmux-sidebar ~/.tmux/plugins/tpm
 [ ! -f ~/.bash/bash-it/LICENSE ] &&  git clone https://github.com/mjaimin/bash-it.git ~/.bash/bash-it/
-[ ! -f ~/.vim/bundle/Vundle.vim/LICENSE-MIT.txt ] && git clone https://github.com/mjaimin/Vundle.vim.git ~/.vim/bundle/Vundle.vim/ && mkdir -pv tmp && git clone https://github.com/morhetz/gruvbox.git tmp && mv  tmp/autoload/ tmp/colors/ ~/.vim/ && rm -rf tmp/
+[ ! -f ~/.vim/bundle/Vundle.vim/LICENSE-MIT.txt ] && git clone https://github.com/VundleVim/Vundle.vim  ~/.vim/bundle/Vundle.vim/ && mkdir -pv tmp && git clone https://github.com/morhetz/gruvbox.git tmp && mv  tmp/autoload/ tmp/colors/ ~/.vim/ && rm -rf tmp/
 [ ! -f ~/.vim/colors/gruvbox.vim ] && git clone https://github.com/morhetz/gruvbox.git tmp && mv  tmp/autoload/ tmp/colors/ ~/.vim/ && rm -rf tmp/
 [ ! -f ~/.tmux/plugins/tmux-battery/LICENSE.md ] && git clone https://github.com/tmux-plugins/tmux-battery.git ~/.tmux/plugins/tmux-battery/
 [ ! -f ~/.tmux/plugins/tmux-cpu/LICENSE ] && git clone https://github.com/tmux-plugins/tmux-cpu.git ~/.tmux/plugins/tmux-cpu/
