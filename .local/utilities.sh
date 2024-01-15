@@ -1,4 +1,4 @@
-#
+#!/bin/bash
 # # ex - archive extractor
 # # usage: ex <file>
 ex ()
@@ -23,16 +23,10 @@ ex ()
   fi
 }
 
-
-
 psgrep () {
   ps aux | grep "$1" | grep -v "grep"
 }
 
-mkcd () {
-  mkdir -p "$1"
-  cd "$1"
-}
 cpbak () {
   cp "$1"{,.bak}
 }

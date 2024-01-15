@@ -34,9 +34,7 @@
 ehthumbs.db
 Icon?
 Thumbs.db
-
 *.lock
-
 
 # cscope files #
 ######################
@@ -46,8 +44,74 @@ cscope.out
 cscope.po.out
 tags
 
+# Vim related files #
+#####################
+*.vim
+*.swpx
+*.session
+*.netrwhist
 
-1
-2
+# Visual Studio Code #
+######################
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-tags
+# SublimeText project files #
+*.sublime-project
+*.sublime-workspace
+
+# IntelliJ project files #
+*.iml
+*.ipr
+*.iws
+.idea/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+
+# Maven #
+#########
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Gradle #
+##########
+.gradle
+build/
+
+# Thumbnails #
+##############
+._*
+
+# python #
+##########
+*.pyc
+*.pyo
+
+# node.js #
+###########
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Bower #
+########
+bower_components/
+
+# react-native #
+###############
+android/build/
+ios/Pods/

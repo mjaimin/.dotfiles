@@ -1,180 +1,232 @@
-[merge]
-    tool = meld
-[mergetool "meld"]
-    # Choose one of these 2 lines (not both!) explained below.
-    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
-    cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
-[diff]
-	tool = meld
-[difftool]
-    prompt = false
-[difftool "meld"]
-    cmd = meld "$LOCAL" "$REMOTE"
-
-[difftool "kompare"]
-    cmd = kompare "$LOCAL" "$REMOTE"
-[alias]
-    parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
-	unstage = reset HEAD --
-    up = "!git remote update -p; git merge --ff-only @{u}"
-#    st = status -sb
-    st = status -s
-    cl = clone
-    ci = commit
-    co = checkout
-    br = branch
-    r = reset
-    cp = cherry-pick
-    gr = grep -Ii
-    bl = blame
-    # }}}
-    # tweak defaults {{{
-    diff = diff --color-words
-    dt= difftool
-    branch = branch -ra
-    grep = grep -Ii
-    bra = branch -ra
-    ai = add --interactive
-    # grep on filename
-    f = "!git ls-files | grep -i"
-    # }}}
-    # commit {{{
-    cm = commit -m
-    cma = commit -a -m
-    ca = commit --amend
-    amend = commit --amend
-    caa = commit -a --amend -C HEAD
-    # }}}
-    # log commands {{{
-    logtree = log --graph --oneline --decorate --all
-    ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-    lc  = "!f() { git ll "$1"^.."$1"; }; f"
-    lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
-    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-    ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-    le = log --oneline --decorate
-    fl = log -u
-    filelog = log -u
-    lf = log --follow -p
-    # }}}
-    # diff {{{
-    d = diff --color-words -U0
-    dc = diff --cached
-    # diff last commit
-    dl = "!git ll -1"
-    dlc = diff --cached HEAD^
-    dr  = "!f() { git diff -w "$1"^.."$1"; }; f"
-    diffr  = "!f() { git diff "$1"^.."$1"; }; f"
-    # }}}
-    # reset commands {{{
-    r1 = reset HEAD^
-    r2 = reset HEAD^^
-    rh = reset --hard
-    rh1 = reset HEAD^ --hard
-    rh2 = reset HEAD^^ --hard
-    # }}}
-    # git svn {{{
-    svnr = svn rebase
-    svnd = svn dcommit
-    svnl = svn log --oneline --show-commit
-    # }}}
-    # stash {{{
-    sl = stash list
-    sa = stash apply
-    ss = stash save
-    # }}}
-    # assume aliases {{{
-    assume = update-index --assume-unchanged
-    unassume = update-index --no-assume-unchanged
-    # show assumed files
-    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
-    # unassume all the assumed files
-    unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
-    assumeall = "!git status -s | awk {'print $2'} | xargs git assume"
-    # }}}
-    # subtree {{{
-    #   add
-    sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f"
-    #   update/pull
-    sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f"
-    # }}}
-    # various useful {{{
-    # last tag created
-    lasttag = describe --tags --abbrev=0
-    lt = describe --tags --abbrev=0
-
-    # conflict/merges
-    ours = "!f() { git co --ours $@ && git add $@; }; f"
-    theirs = "!f() { git co --theirs $@ && git add $@; }; f"
-
-    #list remotes
-    rem="!git config -l | grep remote.*url | tail -n +2"
-
-    #apply patch from other local repo
-    lap = "!f() { git --git-dir=$1 format-patch -k -1 --stdout $2 | git am -3 -k; }; f"
-
-    #open markdown files edited in last commit
-    last = "!vim $(git show HEAD --format="" --name-only | grep -e .*md$ | xargs)"
-    #open just created markdown in working directory
-    newmd = "!vim $(git status -s | awk {'print $2'})"
-
-    # initial empty commit
-    empty = "!git commit -am\"[empty] Initial commit\" --allow-empty"
-
-    # list all aliases
-    la = "!git config -l | grep alias | cut -c 7-"
-    # }}}
-    # convoluted aliases {{{
-    # grep from root folder
-    gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
-    #rename branch tree to done-
-    done = "!f() { git branch | grep "$1" | cut -c 3- | grep -v done | xargs -I{} git branch -m {} done-{}; }; f"
-    #add bitbucket remote
-    ra = "!f() { git remote add $1 https://bitbucket.org/$2.git; }; f"
-    # }}}
-    # worktree list {{{
-    wl = worktree list
-    # undo from here http://megakemp.com/2016/08/25/git-undo/
-    undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
-	ptest = !git config user.signingkey  F42977483EE52181 && git push --signed
-[rerere]
-  enabled = false
-[rebase]
-  autosquash = true
-[filter "lfs"]
-    clean = git-lfs clean %f
-    smudge = git-lfs smudge %f
-    required = true
 [core]
-    editor = vim
-   # pager = less -+s -+F -+X
+    editor = vim # Set vim as the default editor
+
 [color]
-    ui = true
-#   branch = auto
-#   diff = auto
-#   status = auto
+    ui = true # Enable color output in the terminal
 
 [color "branch"]
-    current = red reverse
-    local = blue
-    remote = green
+    current = red reverse # Color for the current branch
+    local = blue # Color for local branches
+    remote = green # Color for remote branches
 
 [color "diff"]
-    meta = yellow
-    frag = magenta
-    old = red bold
-    new = green
-    plain = white
+    meta = yellow # Color for metadata in diffs
+    frag = magenta # Color for diff fragments
+    old = red bold # Color for old lines in diffs
+    new = green # Color for new lines in diffs
+    plain = white # Color for plain lines in diffs
 
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
-[credential]
-[credential]
-	helper = cache
+    added = yellow # Color for added files in status
+    changed = green # Color for changed files in status
+    untracked = cyan # Color for untracked files in status
+
+[merge]
+    tool = meld # Set meld as the default merge tool
+
+[mergetool "meld"]
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED" # Command to launch meld merge tool
+
+[diff]
+    tool = meld # Set meld as the default diff tool
+
+[difftool]
+    prompt = false # Disable prompt before launching diff tool
+
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE" # Command to launch meld diff tool
+
+[difftool "kompare"]
+    cmd = kompare "$LOCAL" "$REMOTE" # Command to launch kompare diff tool
+
+[rerere]
+    enabled = false # Disable reuse recorded resolution of conflicted merges
+
+[rebase]
+    autosquash = true # Automatically squash commits when they are committed with a message that begins with "squash!"
+
+[fetch]
+    prune = true # Automatically remove remote-tracking references that no longer exist on the remote when fetching
+
+[filter "lfs"]
+    clean = git-lfs clean %f # Command to clean the files
+    smudge = git-lfs smudge %f # Command to smudge the files
+    required = true # Require the filter
+
+[push]
+    default = current # Default behavior of git push is to push the current branch to the corresponding upstream branch
+
+[http]
+    postBuffer = 524288000 # Size of the buffer used by smart HTTP transports when POSTing data to the remote system
+
+[alias]
+    # Checkout operations
+    co = checkout # Checkout a branch or paths to the working tree
+
+    # Branch operations
+    br = branch # List, create, or delete branches
+    branch = branch -ra # List both remote-tracking branches and local branches
+    bra = branch -ra # List both remote-tracking branches and local branches
+
+    # Commit operations
+    ci = commit # Record changes to the repository
+    cm = commit -m # Record changes to the repository with a given message
+    cma = commit -a -m # Automatically stage files that have been modified and deleted, then commit with a message
+    ca = commit --amend # Amend the tip of the current branch
+    amend = commit --amend # Amend the tip of the current branch
+    caa = commit -a --amend -C HEAD # Automatically stage files that have been modified and deleted, then amend the tip of the current branch using the message from the tip
+
+    # Status and reset operations
+    st = status # Show the working tree status
+    unstage = reset HEAD -- # Unstage changes
+    r = reset # Reset current HEAD to the specified state
+    r1 = reset HEAD^ # Move HEAD^ to the specified state
+    r2 = reset HEAD^^ # Move HEAD^^ to the specified state
+    rh = reset --hard # Reset current HEAD to the specified state and discard changes
+    rh1 = reset HEAD^ --hard # Move HEAD^ to the specified state and discard changes
+    rh2 = reset HEAD^^ --hard # Move HEAD^^ to the specified state and discard changes
+    rh3 = reset HEAD^^^ --hard # Move HEAD^^^ to the specified state and discard changes
+
+    # Update operations
+    up = "!git remote update -p; git merge --ff-only @{u}" # Fetch updates from the remote and merge
+
+    # Clone operations
+    cl = clone # Clone a repository into a new directory
+
+    # Cherry-pick operations
+    cp = cherry-pick # Apply the changes introduced by some existing commits
+
+    # Grep operations
+    gr = grep -Ii # Case-insensitive grep
+    grep = grep -Ii # Case-insensitive grep
+
+    # Blame operations
+    bl = blame # Show what revision and author last modified each line of a file
+
+    # Diff operations
+    diff = diff --color-words # Show changes with words as the atomic unit of change
+    dt = difftool # Launch git difftool
+    d = diff --color-words -U0 # Show changes with words as the atomic unit of change, no context lines
+    dc = diff --cached # Show changes between the index and the last commit
+    dl = "!git ll -1" # Show changes of the last commit
+    dlc = diff --cached HEAD^ # Show changes between the index and the commit before last
+    dr = "!f() { git diff -w "$1"^.."$1"; }; f" # Show changes of a specific commit, ignoring whitespace
+    diffr = "!f() { git diff "$1"^.."$1"; }; f" # Show changes of a specific commit
+
+    # Log operations
+    logtree = log --graph --oneline --decorate --all # Show all commits in a graph
+    ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative # Show commits with relative dates
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat # Show commits with number of added and deleted lines
+    lc = "!f() { git ll "$1"^.."$1"; }; f" # Show commits of a specific commit
+    lnc = log --pretty=format:"%h\\ %s\\ [%cn]" # Show commits with author name
+    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short # Show commits with short dates
+    ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative # Show commits with relative dates
+    le = log --oneline --decorate # Show commits in one line
+    fl = log -u # Show commits with patches
+    filelog = log -u # Show commits with patches
+    lf = log --follow -p # Show history of a file, following renames
+
+    # Add operations
+    ai = add --interactive # Add files interactively
+
+    # SVN operations
+    svnr = svn rebase # Rebase current branch onto upstream
+    svnd = svn dcommit # Commit changes from git to SVN
+    svnl = svn log --oneline --show-commit # Show SVN log
+
+    # Stash operations
+    sl = stash list # List stashes
+    sa = stash apply # Apply a stash
+    ss = stash save # Save a stash
+
+    # Assumption operations
+    assume = update-index --assume-unchanged # Assume files are unchanged
+    unassume = update-index --no-assume-unchanged # Unassume files are unchanged
+    assumed = "!git ls-files -v | grep ^h | cut -c 3-" # List assumed unchanged files
+    unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged" # Unassume all files
+    assumeall = "!git status -s | awk {'print $2'} | xargs git assume" # Assume all files
+
+    # Subtree operations
+    sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f" # Add a subtree
+    sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f" # Update a subtree
+
+    # Tag operations
+    lasttag = describe --tags --abbrev=0 # Describe the last tag
+    lt = describe --tags --abbrev=0 # Describe the last tag
+
+    # Conflict resolution operations
+    ours = "!f() { git co --ours $@ && git add $@; }; f" # Check out our changes
+    theirs = "!f() { git co --theirs $@ && git add $@; }; f" # Check out their changes
+
+    # Remote operations
+    rem = "!git config -l | grep remote.*url | tail -n +2" # List remote URLs
+    ra = "!f() { git remote add $1 https://bitbucket.org/$2.git; }; f" # Add a remote
+
+    # Patch operations
+    lap = "!f() { git --git-dir=$1 format-patch -k -1 --stdout $2 | git am -3 -k; }; f" # Apply a patch
+
+    # File operations
+    last = "!vim $(git show HEAD --format="" --name-only | grep -e .*md$ | xargs)" # Open the last modified markdown file
+    newmd = "!vim $(git status -s | awk {'print $2'})" # Open a new markdown file
+
+    # Commit operations
+    empty = "!git commit -am\"[empty] Initial commit\" --allow-empty" # Make an empty commit
+    la = "!git config -l | grep alias | cut -c 7-" # List aliases
+
+    # Grep operations
+    gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f" # Grep in the repository
+
+    # Branch operations
+    done = "!f() { git branch | grep "$1" | cut -c 3- | grep -v done | xargs -I{} git branch -m {} done-{}; }; f" # Mark branches as done
+    branch-name = "!sh -c 'git rev-parse --abbrev-ref HEAD' -" # Show the current branch
+
+    # Worktree operations
+    wl = worktree list # List worktrees
+
+    # Undo operations
+    undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f" # Undo last operation
+
+    # Diff operations
+    diff-last = diff HEAD # Show the diff between the latest commit and the current state
+    changes = "!sh -c 'git diff --name-status $1^..$1' -" # Show the changes between two commits
+    doff = "!sh -c 'git diff HEAD' -" # Show the difference between the current state and the last commit
+    ds = diff --staged # Show the difference between the current state and the staging area
+
+    # Log operations
+    last-global = "!sh -c 'git log --all --oneline -n 1' -" # Show the last commit across all branches
+    history = log --oneline --graph --decorate --all # Show the commit history for the current branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short # Show the commit history, including changes
+    file-history = log --follow # Show the commit history for a specific file
+
+    # Line operations
+    line-stat = "!sh -c 'git log --shortstat --oneline | grep -E \"insertions\\(\\+\\)|deletions\\(-\\)\" | awk \"{print \\$4,\\$6}\" | sed \"s/insertions(+)//g\" | sed \"s/deletions(-)//g\"' -" # Show line statistics
+    blame-line = blame -L # Blame a specific line
+
+    # Tag operations
+    tags = tag --sort=-creatordate # List tags sorted by creation date
+
+    # Author operations
+    authors = shortlog -s -n # List authors sorted by number of commits
+    author = "!sh -c 'git log --author=\"$1\"' -" # Show commits by a specific author
+
+    # Log operations
+    week = log --since='1 week ago' # Show commits from the past week
+    today = log --since='1 day ago' # Show commits from today
+    pretty = log --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>' # Show commits in a pretty format
+    graph = log --all --graph --decorate --oneline # Show all commits as a graph
+    graph-full = log --all --graph --decorate # Show all commits as a full graph
+    file-history-detailed = log --follow -p # Show detailed history of a specific file
+    last-change = show --stat # Show the last change
+    last-change-file = "!sh -c 'git log -p -1 -- $1' -" # Show the last change to a specific file
+
+    # Diff operations
+    staged = diff --cached # Show staged changes
+    unstaged = diff # Show unstaged changes
+    all-changes = diff HEAD # Show all changes
+    branches-diff = "!sh -c 'git diff --name-status $1..$2' -" # Show changes between branches
+
+    # Branch operations
+    unmerged-into = "!sh -c 'git branch --no-merged $1' -" # Show branches not merged into a specific branch
+    not-merged-from = "!sh -c 'git branch --merged $1' -" # Show branches merged from a specific branch
+    common = "!sh -c 'git branch --contains $1' -" # Show branches that contain a specific commit
+    unique = "!sh -c 'git branch --no-contains $1' -" # Show branches that do not contain a specific commit
