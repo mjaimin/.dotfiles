@@ -3,6 +3,7 @@ set guitablabel=%t
 set ls=2
 set clipboard+=autoselect
 set clipboard=unnamed                       " use system clipboard
+set clipboard=unnamedplus
 set guioptions+=a
 "set diffexpr=MyDiff()
 set makeprg=g++\ % " use make | copen

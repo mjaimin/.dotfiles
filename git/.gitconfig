@@ -28,7 +28,7 @@
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED" # Command to launch meld merge tool
 
 [diff]
-    tool = meld # Set meld as the default diff tool
+    tool = BC3 # Set meld as the default diff tool
 
 [difftool]
     prompt = false # Disable prompt before launching diff tool
@@ -38,6 +38,9 @@
 
 [difftool "kompare"]
     cmd = kompare "$LOCAL" "$REMOTE" # Command to launch kompare diff tool
+
+[difftool "BC3"]
+    cmd = bcompare "$LOCAL" "$REMOTE" # Command to launch Beyond Compare 3 diff tool
 
 [rerere]
     enabled = false # Disable reuse recorded resolution of conflicted merges
@@ -230,3 +233,14 @@
     not-merged-from = "!sh -c 'git branch --merged $1' -" # Show branches merged from a specific branch
     common = "!sh -c 'git branch --contains $1' -" # Show branches that contain a specific commit
     unique = "!sh -c 'git branch --no-contains $1' -" # Show branches that do not contain a specific commit
+
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+
+[commit]
+        gpgsign = true
+
