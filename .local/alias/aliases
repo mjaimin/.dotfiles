@@ -1,5 +1,7 @@
 source ~/.dotfiles/.local/alias/cd.alias
 source ~/.dotfiles/.local/alias/cp.alias
+source ~/.dotfiles/.local/alias/code.alias
+source ~/.dotfiles/.local/alias/ranger.alias
 source ~/.dotfiles/.local/alias/grep.alias
 source ~/.dotfiles/.local/alias/ls.alias
 source ~/.dotfiles/.local/alias/misc.alias
