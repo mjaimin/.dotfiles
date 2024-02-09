@@ -1,0 +1,60 @@
+{
+    "workbench.colorTheme": "Default (Notepad++ light)",
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]",
+        "ERROR",
+        "WARNING",
+        "NOTE",
+        "DEBUG"
+    ],
+    "todo-tree.highlights.customHighlight": {
+        "XXX": {
+            "icon": "x"
+        },
+        "[ ]": {
+            "icon": "issue-draft"
+        },
+        "[x]": {
+            "icon": "issue-closed"
+        },
+        "BUG": {
+            "icon": "bug",
+            "background": "#FF8888"
+        },
+        "HACK": {
+            "icon": "tools",
+            "background": "#A5A5A5"
+        },
+        "DEBUG": {
+            "icon": "bug",
+            "background": "#50FF50"
+        },
+        "FIXME": {
+            "icon": "flame",
+            "background": "#FFFF00"
+        },
+        "TODO": {
+            "icon": "check",
+            "background": "#ADD8E6"
+        },
+        "NOTE": {
+            "icon": "note",
+            "background": "#ADADE6"
+        },
+        "WARNING": {
+            "icon": "alert",
+            "background": "#FFA500"
+        },
+        "ERROR": {
+            "icon": "error",
+            "background": "#FF0000"
+        }
+    },
+    "todo-tree.general.statusBar": "tags"
+}
