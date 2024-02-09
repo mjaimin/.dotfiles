@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "vivaxy.vscode-conventional-commits",
+        "Gruntfuggly.todo-tree",
+        "adam-bender.commit-message-editor",
+        "rfxTech.rfx-focf",
+        "PKief.material-icon-theme",
+        "flyfly6.terminal-in-status-bar",
+        "alefragnani.Bookmarks",
+        "aaron-bond.better-comments",
+        "donjayamanne.githistory",
+        "codezombiech.gitignore",
+        "dzhavat.git-cheatsheet"
+    ]
+}
