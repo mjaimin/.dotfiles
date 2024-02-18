@@ -1,2 +1,2 @@
-source ~/.dotfiles/.local/alias/aliases
+source ~/.dotfiles/local/alias/aliases
 

@@ -15,7 +15,7 @@ sudo add-apt-repository ppa:agornostal/ulauncher -y
 
 # Update package lists and install packages
 sudo apt-get update
-sudo apt-get -y install git vim ulauncher latte-dock fsearch universal-ctags
+sudo apt-get -y install git vim ulauncher latte-dock fsearch universal-ctags duf
 
 # Install oh-my-zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
