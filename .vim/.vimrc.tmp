@@ -1,4 +1,0 @@
-"augroup highlight_current_world
-"  au!
-"  au CursorHold * :exec 'match Search /\V\<' . expand('<cword>') . '\>/'
-"augroup END
