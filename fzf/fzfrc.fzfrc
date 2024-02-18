@@ -1,0 +1,145 @@
+set_fzf_solarized_dark() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#839496,bg:#002b36,hl:#93a1a1
+    --color=fg+:#839496,bg+:#073642,hl+:#93a1a1
+    --color=info:#859900,prompt:#268bd2,pointer:#d33682
+    --color=marker:#cb4b16,spinner:#268bd2,header:#586e75
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="Ξ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_gruvbox() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#ebdbb2,bg:#282828,hl:#d79921
+    --color=fg+:#ebdbb2,bg+:#1d2021,hl+:#fabd2f
+    --color=info:#b8bb26,prompt:#fe8019,pointer:#fe8019
+    --color=marker:#fb4934,spinner:#b8bb26,header:#ebdbb2
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="➜ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_nord() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#E5E9F0,bg:#2E3440,hl:#81A1C1
+    --color=fg+:#ECEFF4,bg+:#3B4252,hl+:#88C0D0
+    --color=info:#8FBCBB,prompt:#5E81AC,pointer:#BF616A
+    --color=marker:#A3BE8C,spinner:#5E81AC,header:#D8DEE9
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="λ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_dracula() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#F8F8F2,bg:#282A36,hl:#BD93F9
+    --color=fg+:#F8F8F2,bg+:#44475A,hl+:#CAA9FA
+    --color=info:#F1FA8C,prompt:#FF79C6,pointer:#FF79C6
+    --color=marker:#50FA7B,spinner:#FF79C6,header:#F8F8F2
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="▶ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_monokai() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#f8f8f2,bg:#272822,hl:#f92672
+    --color=fg+:#f8f8f2,bg+:#3e3d32,hl+:#fd971f
+    --color=info:#a6e22e,prompt:#f92672,pointer:#66d9ef
+    --color=marker:#a1efe4,spinner:#f92672,header:#ae81ff
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="☼ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_tomorrow_night() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#c5c8c6,bg:#1d1f21,hl:#b294bb
+    --color=fg+:#c5c8c6,bg+:#282a2e,hl+:#b294bb
+    --color=info:#81a2be,prompt:#b5bd68,pointer:#cc6666
+    --color=marker:#b5bd68,spinner:#b5bd68,header:#de935f
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="⚫ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_oceanic_next() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#1B2B34,bg:#343D46,hl:#EC5f67
+    --color=fg+:#D8DEE9,bg+:#4F5B66,hl+:#F99157
+    --color=info:#99C794,prompt:#6699CC,pointer:#FAC863
+    --color=marker:#C594C5,spinner:#5FB3B3,header:#AB7967
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="≈ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_one_dark() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#ABB2BF,bg:#282C34,hl:#C678DD
+    --color=fg+:#ABB2BF,bg+:#353B45,hl+:#C678DD
+    --color=info:#56B6C2,prompt:#61AFEF,pointer:#E06C75
+    --color=marker:#98C379,spinner:#E5C07B,header:#61AFEF
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="λ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+set_fzf_zenburn() {
+    export FZF_DEFAULT_OPTS='
+    --color=fg:#DCDCCC,bg:#3F3F3F,hl:#F0DFAF
+    --color=fg+:#DCDCCC,bg+:#4F4F4F,hl+:#F0DFAF
+    --color=info:#7F9F7F,prompt:#DFAF8F,pointer:#CC9393
+    --color=marker:#8CD0D3,spinner:#7CB8BB,header:#D0BF8F
+    --layout=reverse
+    --border
+    --margin=1,4
+    --prompt="⚡ "
+    --pointer="▶"
+    --marker="✓"
+    '
+}
+
+
+set_fzf_solarized_dark
+
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
+--preview 'if [ -d "{}" ]; then echo "Files:"; echo "------"; ls "{}"; else highlight -O ansi --force {} 2>&1 | grep -v "highlight"; fi'
+--preview-window right:50%
+"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --extended"
+
+
