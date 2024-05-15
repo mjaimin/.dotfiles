@@ -48,10 +48,11 @@ function virtualenv_info {
 }
 
 # Git settings
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[075]%}(%{$fg[078]%}"
+# git settings
+ZSH_THEME_GIT_PROMPT_PREFIX=" ${FG[075]}(${FG[078]}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[214]%}*%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[075]%})%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="${FG[214]}*%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="${FG[075]})%{$reset_color%}"
 
 # Mercurial settings
 ZSH_THEME_HG_PROMPT_PREFIX="%{$fg[075]%}(%{$fg[078]%}"
