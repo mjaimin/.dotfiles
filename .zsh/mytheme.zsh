@@ -20,9 +20,9 @@ precmd() {
     local dashes_before=$(( (columns - elapsed_length - 2) / 2 ))
     local dashes_after=$(( columns - elapsed_length - dashes_before - 2 ))
 
-    printf '%*s' "$dashes_before" '' | tr ' ' '-'
-    printf ' %s ' "$FORMATTED_ELAPSED_TIME"
-    printf '%*s\n' "$dashes_after" '' | tr ' ' '-'
+    printf '\e[1;36m%*s\e[0m' "$dashes_before" '' | tr ' ' '-'
+    printf "$FORMATTED_ELAPSED_TIME"  # Underline the elapsed time
+    printf '\e[1;36m%*s\e[0m\n' "$dashes_after" '' | tr ' ' '-'
     echo -n $'\n'
 
     # Check the exit status of the last command
