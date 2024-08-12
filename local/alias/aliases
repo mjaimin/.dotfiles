@@ -13,6 +13,6 @@ source ~/.dotfiles/local/alias/curl.alias
 source ~/.dotfiles/local/alias/beep.alias
 source ~/.dotfiles/local/alias/history.alias
 source ~/.dotfiles/local/alias/mount.alias
-source ~/.dotfiles/local/alias/date.alias
+#source ~/.dotfiles/local/alias/date.alias
 source ~/.dotfiles/local/alias/tmux.alias
 [[ -f ~/.local/alias/local.alias ]] && source ~/.local/alias/local.alias
