@@ -22,10 +22,13 @@
     untracked = cyan # Color for untracked files in status
 
 [merge]
-    tool = meld # Set meld as the default merge tool
+    tool = BC3 # Set meld as the default merge tool
 
 [mergetool "meld"]
     cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED" # Command to launch meld merge tool
+
+[mergetool "BC3"]
+    cmd = bcompare "$LOCAL" "$REMOTE" "$BASE" "$MERGED" # Command to launch BC3 merge tool
 
 [diff]
     tool = BC3 # Set meld as the default diff tool
@@ -70,6 +73,10 @@
     br = branch # List, create, or delete branches
     branch = branch -ra # List both remote-tracking branches and local branches
     bra = branch -ra # List both remote-tracking branches and local branches
+    swt = switch --track # create a local branch and track the remote branch
+    swn = switch -c #create and switch to a new branch
+    swl = switch - #create and switch to a new branch
+    sw = switch #switch branches
 
     # Commit operations
     ci = commit # Record changes to the repository
@@ -83,12 +90,12 @@
     st = status # Show the working tree status
     unstage = reset HEAD -- # Unstage changes
     r = reset # Reset current HEAD to the specified state
-    r1 = reset HEAD^ # Move HEAD^ to the specified state
-    r2 = reset HEAD^^ # Move HEAD^^ to the specified state
+    r1 = reset HEAD^ # Reset to the previous commit (HEAD^)
+    r2 = reset HEAD^^ # Reset to two commits ago (HEAD^^)
     rh = reset --hard # Reset current HEAD to the specified state and discard changes
-    rh1 = reset HEAD^ --hard # Move HEAD^ to the specified state and discard changes
-    rh2 = reset HEAD^^ --hard # Move HEAD^^ to the specified state and discard changes
-    rh3 = reset HEAD^^^ --hard # Move HEAD^^^ to the specified state and discard changes
+    rh1 = reset HEAD^ --hard # Reset to the previous commit (HEAD^) and discard changes
+    rh2 = reset HEAD^^ --hard # Reset to two commits ago (HEAD^^) and discard changes
+    rh3 = reset HEAD^^^ --hard # Reset to three commits ago (HEAD^^^) and discard changes
 
     # Update operations
     up = "!git remote update -p; git merge --ff-only @{u}" # Fetch updates from the remote and merge
