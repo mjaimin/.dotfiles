@@ -1,16 +1,23 @@
-# Core configuration
-[core]
-    editor = vim
-    excludesfile = ~/.gitignore_global
-    attributesfile = ~/.gitattributes
-    untrackedCache = true
-    fsmonitor = true
-    compression = 9
-    bigFileThreshold = 512m
-    whitespace = trailing-space,space-before-tab
-    pager = delta
+# ----------------------------------
+# Global Git Configuration
+# ----------------------------------
 
-# Authentication and credentials
+# ──────────────────────────────────────────────────────────────────────────
+# CORE CONFIG
+# ──────────────────────────────────────────────────────────────────────────
+[core]
+    editor             = vim
+    excludesfile       = ~/.gitignore_global
+    attributesfile     = ~/.gitattributes
+    compression        = 9
+    bigFileThreshold   = 512m
+    whitespace         = trailing-space,space-before-tab
+    pager              = delta
+    untrackedCache     = true
+
+# ──────────────────────────────────────────────────────────────────────────
+# AUTHENTICATION & CREDENTIALS
+# ──────────────────────────────────────────────────────────────────────────
 [credential "https://github.com"]
     helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
@@ -18,194 +25,232 @@
 [credential]
     helper = store
 
-# Commit signing and templates
+# ──────────────────────────────────────────────────────────────────────────
+# COMMIT
+# ──────────────────────────────────────────────────────────────────────────
 [commit]
-    gpgSign = true
+    gpgSign  = true
     template = ~/.gitmessage
-    verbose = true
-    gpgsign = true
+    verbose  = true
 
-# Colors and UI
+# ──────────────────────────────────────────────────────────────────────────
+# COLOR & UI
+# ──────────────────────────────────────────────────────────────────────────
 [color]
-    ui = auto
-    diff = auto
-    status = auto
-    branch = auto
-    interactive = auto
+    ui         = auto
+    diff       = auto
+    status     = auto
+    branch     = auto
+    interactive= auto
 
 [color "branch"]
     current = red reverse
-    local = blue
-    remote = green
+    local   = blue
+    remote  = green
 
 [color "diff"]
-    meta = yellow
-    frag = magenta
-    old = red bold
-    new = green
+    meta  = yellow
+    frag  = magenta
+    old   = red bold
+    new   = green
     plain = white
 
 [color "status"]
-    added = yellow
-    changed = green
+    added     = yellow
+    changed   = green
     untracked = cyan
 
+# ──────────────────────────────────────────────────────────────────────────
+# MERGE & MERGETOOL
+# ──────────────────────────────────────────────────────────────────────────
 [merge]
-    tool = BC3 # Set meld as the default merge tool
+    ff            = false           # Don't fast-forward merges automatically
+    conflictstyle = diff3           # Show 3-way diffs for conflicts
+    tool          = bcompare         # Default merge tool
+    log           = true
+    stat          = true
+
+[mergetool "vimdiff"]
+    cmd = vimdiff "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
 [mergetool "meld"]
-    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED" # Command to launch meld merge tool
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
 
-[mergetool "BC3"]
-    cmd = bcompare "$LOCAL" "$REMOTE" "$BASE" "$MERGED" # Command to launch BC3 merge tool
-
-[diff]
-    tool = BC3 # Set meld as the default diff tool
-    colorMoved = zebra # Better visualization of moved code blocks
-    algorithm = histogram # More accurate diff algorithm
-    mnemonicPrefix = true # Use better diff prefixes (i/w/c/o) instead of (a/b)
-
-[difftool]
-    prompt = false # Disable prompt before launching diff tool
-
-[difftool "meld"]
-    cmd = meld "$LOCAL" "$REMOTE" # Command to launch meld diff tool
-
-[difftool "kompare"]
-    cmd = kompare "$LOCAL" "$REMOTE" # Command to launch kompare diff tool
-
-[difftool "BC3"]
-    cmd = bcompare "$LOCAL" "$REMOTE" # Command to launch Beyond Compare 3 diff tool
+[mergetool "bcompare"]
+    cmd = bcompare "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
 [rerere]
-    enabled = false # Disable reuse recorded resolution of conflicted merges
+    enabled = false   # Disable reuse of recorded resolutions
 
+# ──────────────────────────────────────────────────────────────────────────
+# DIFF & DIFFTOOL
+# ──────────────────────────────────────────────────────────────────────────
+[diff]
+    tool            = bcompare
+    algorithm       = histogram
+    mnemonicPrefix  = true
+    renames         = copies
+    indentHeuristic = true
+    colorMoved      = zebra  # More visually distinct for moved lines
+
+[difftool]
+    prompt = false  # Don't ask for confirmation before launching
+
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+
+[difftool "kompare"]
+    cmd = kompare "$LOCAL" "$REMOTE"
+
+[difftool "bcompare"]
+    cmd = bcompare "$LOCAL" "$REMOTE"
+
+# ──────────────────────────────────────────────────────────────────────────
+# REBASE, FETCH, PUSH, PULL
+# ──────────────────────────────────────────────────────────────────────────
 [rebase]
-    autosquash = true # Automatically squash commits when they are committed with a message that begins with "squash!"
+    autosquash   = true     # "fixup!" and "squash!" commits get folded automatically
+    autoStash    = true     # Stash before rebase
+    updateRefs   = true     # Update reflogs
+    missingCommitsCheck = error
 
 [fetch]
-    prune = true # Remove remote-tracking branches that were deleted from the remote repo
-
-[filter "lfs"]
-    clean = git-lfs clean %f # Command to clean the files
-    smudge = git-lfs smudge %f # Command to smudge the files
-    required = true # Require the filter
-
-[push]
-    default = current # Default behavior of git push is to push the current branch to the corresponding upstream branch
-    default = current # Push the current branch to upstream branch
-    autoSetupRemote = true # Automatically set up remote branch on first push
+    prune       = true      # Remove remote-tracking branches deleted from remote
+    pruneTags   = true      # Remove tags deleted from remote
+    parallel    = 0         # Unlimited parallel fetch if server supports multi-ack
 
 [pull]
-    rebase = false # Merge by default when pulling
-    ff = only # Fast-forward only when possible
+    rebase      = true      # Use rebase by default when pulling
+    ff          = only      # Only do fast-forward merges if possible
 
-[init]
-    defaultBranch = main # Set default branch name to main
+[push]
+    default         = current   # Push current branch to remote of same name
+    autoSetupRemote = true      # Automatically track remote branch
+    followTags      = true      # Push annotated tags along with commits
 
+# ──────────────────────────────────────────────────────────────────────────
+# FILTERS (e.g., Git LFS)
+# ──────────────────────────────────────────────────────────────────────────
+[filter "lfs"]
+    clean    = git-lfs clean %f
+    smudge   = git-lfs smudge %f
+    required = true
+
+# ──────────────────────────────────────────────────────────────────────────
+# DELTA CONFIGURATION
+# https://github.com/dandavison/delta
+# ──────────────────────────────────────────────────────────────────────────
 [delta]
-    navigate = true # Use n and N to move between diff sections
-    light = false # Set to true if you use a light terminal background
-    side-by-side = true # Show diffs side by side
-    line-numbers = true # Show line numbers
+    navigate       = true        # Use n / N to jump between diff sections
+    light          = false       # Set true if you have a light terminal background
+    side-by-side   = true        # Display side-by-side diffs
+    line-numbers   = true        # Show line numbers
 
 [interactive]
-    diffFilter = delta --color-only # Use delta in interactive mode
+    diffFilter = delta --color-only
 
+# ──────────────────────────────────────────────────────────────────────────
+# ALIASES
+# ──────────────────────────────────────────────────────────────────────────
 [alias]
-    # Status & Information
-    s = status -s # Short status
-    st = status # Show working tree status
+    # --- Status & Information ---
+    s  = status -s
+    st = status
 
-    # Basic Operations
-    c = commit # Basic commit
-    ci = commit # Record changes
-    cm = commit -m # Commit with message
-    cma = commit -a -m # Stage modified/deleted and commit
-    ca = commit --amend # Amend last commit
-    caa = commit -a --amend -C HEAD # Stage and amend with last message
-    empty = "!git commit -am\"[empty] Initial commit\" --allow-empty" # Empty commit
+    # --- Commit Shortcuts ---
+    c   = commit
+    ci  = commit
+    cm  = commit -m
+    cma = commit -a -m
+    ca  = commit --amend
+    caa = commit -a --amend -C HEAD
+    empty = "!git commit -am\"[empty] Initial commit\" --allow-empty"
 
-    # Branch Management
-    b = branch # Basic branch command
-    ba = branch -a # List all branches
-    br = branch -v # Show branches with last commit
-    bra = branch -ra # List remote and local branches
-    bd = branch -d # Delete branch
-    bD = branch -D # Force delete branch
-    brc = branch --merged | grep -v '*' | xargs git branch -d # Clean merged branches
-    branch-name = "!sh -c 'git rev-parse --abbrev-ref HEAD' -" # Show current branch
-    cleanup = !git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d # Clean merged
-    findmerged = !git branch --merged | grep -v \"\\*\" # List merged branches
-    findunmerged = !git branch --no-merged # List unmerged branches
+    # --- Branch Management ---
+    b      = branch
+    ba     = branch -a
+    br     = branch -v
+    bra    = branch -ra
+    bd     = branch -d
+    bD     = branch -D
+    brc    = "!git branch --merged | grep -v '*' | xargs git branch -d"
+    branch-name = "!sh -c 'git rev-parse --abbrev-ref HEAD' -"
+    cleanup     = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    findmerged  = "!git branch --merged | grep -v '\\*'"
+    findunmerged= "!git branch --no-merged"
 
-    # Switching & Checkout
-    co = checkout # Checkout
-    cob = checkout -b # Create and checkout branch
-    sw = switch # Switch branches
-    swt = switch --track # Create and track remote branch
-    swn = switch -c # Create and switch to new branch
-    swl = switch - # Switch to last branch
+    # --- Checkout / Switch ---
+    co  = checkout
+    cob = checkout -b
+    sw  = switch
+    swt = switch --track
+    swn = switch -c
+    swl = switch -
 
-    # Diff & Changes
-    d = diff # Basic diff
-    ds = diff --staged # Diff staged changes
-    dc = diff --cached # Diff cached changes
-    dt = difftool # Launch diff tool
-    last = diff HEAD^ # Diff against previous commit
-    all-changes = diff HEAD # Show all changes
-    branches-diff = "!sh -c 'git diff --name-status $1..$2' -" # Diff between branches
+    # --- Diffs & Changes ---
+    d      = diff
+    ds     = diff --staged
+    dc     = diff --cached
+    dt     = difftool
+    last   = diff HEAD^
+    all-changes  = diff HEAD
+    branches-diff= "!sh -c 'git diff --name-status $1..$2' -"
 
-    # Log & History
-    l = log --oneline # Simple one-line log
-    lg = log --graph --pretty=format:'%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>' # Pretty graph
-    hist = log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %s%C(red)%d%C(reset) [%an]' --graph --date=short # History with dates
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat # Log with stats
-    daily = !git log --since=yesterday # Today's changes
-    week = !git log --since='1 week ago' # Week's changes
+    # --- Logs & History ---
+    l   = log --oneline
+    lg  = log --graph --pretty=format:'%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>'
+    hist= log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %s%C(red)%d%C(reset) [%an]' --graph --date=short
+    ll  = log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate --numstat
+    daily= "!git log --since=yesterday"
+    week = "!git log --since='1 week ago'"
 
-    # Remote Operations
-    f = fetch --all --prune # Fetch and prune
-    p = push # Push
-    pf = push --force-with-lease # Safe force push
-    up = "!git remote update -p; git merge --ff-only @{u}" # Update from remote
-    sync = !git pull --rebase && git push # Sync with remote
+    # --- Remote Operations ---
+    f   = fetch --all --prune
+    p   = push
+    pf  = push --force-with-lease
+    up  = "!git remote update -p; git merge --ff-only @{u}"
+    sync= "!git pull --rebase && git push"
 
-    # Stash Operations
-    ss = stash save # Save stash
-    sp = stash pop # Pop stash
-    sa = stash apply # Apply stash
-    sl = stash list # List stashes
-    std = stash drop # Drop stash
+    # --- Stash ---
+    ss  = stash save
+    sp  = stash pop
+    sa  = stash apply
+    sl  = stash list
+    std = stash drop
 
-    # Search & Find
-    find = !git ls-files | grep -i # Find in tracked files
-    findfile = "!f() { git ls-files | grep -i \"$1\"; }; f" # Find files
-    findtext = "!f() { git grep -n \"$1\"; }; f" # Find in content
-    findauthor = "!f() { git log --pretty=format:'%h - %an, %ar : %s' --author=\"$1\"; }; f" # Find by author
-    gr = grep -Ii # Case-insensitive grep
+    # --- Search & Find ---
+    find      = "!git ls-files | grep -i"
+    findfile  = "!f() { git ls-files | grep -i \"$1\"; }; f"
+    findtext  = "!f() { git grep -n \"$1\"; }; f"
+    findauthor= "!f() { git log --pretty=format:'%h - %an, %ar : %s' --author=\"$1\"; }; f"
+    gr        = grep -Ii
 
-    # Reset & Undo
-    unstage = reset HEAD -- # Unstage changes
-    undo = reset --soft HEAD^ # Undo last commit
-    wip = !git add -A && git commit -m "WIP" # Save work in progress
+    # --- Reset & Undo ---
+    unstage   = reset HEAD --
+    undo      = reset --soft HEAD^
+    wip       = "!git add -A && git commit -m 'WIP'"
 
-    # Utility
-    aliases = config --get-regexp alias # List all aliases
-    cp = cherry-pick # Cherry pick
-    tags = tag --sort=-creatordate # List tags by date
+    # --- Utility ---
+    aliases   = config --get-regexp alias
+    cp        = cherry-pick
+    tags      = tag --sort=-creatordate
 
+# ──────────────────────────────────────────────────────────────────────────
+# MISCELLANEOUS CONFIG
+# ──────────────────────────────────────────────────────────────────────────
 [help]
     autocorrect = prompt
+
 [status]
-    showUntrackedFiles = all # Show all untracked files in git status
-    relativePaths = false # Use full paths in git status
+    showUntrackedFiles = all
+    relativePaths      = false
+    submoduleSummary   = true
 
+# Shorthand for GitHub repos: use "gh:owner/repo"
 [url "git@github.com:"]
-    insteadOf = gh: # Shorthand for GitHub repositories
-
+    insteadOf = gh:
 [url "https://github.com"]
-    insteadOf = gh: # Shorthand for GitHub repositories
+    insteadOf = gh:
 
 [safe]
     directory = /tmp
@@ -213,121 +258,75 @@
 [tag]
     forceSignAnnotated = true
 
-[diff]
-    algorithm = histogram
-    colorMoved = default
-    mnemonicPrefix = true
-    renames = copies
-    indentHeuristic = true
-
-[merge]
-    ff = false
-    conflictstyle = diff3
-    tool = vimdiff
-    log = true
-    stat = true
-
-[push]
-    default = current
-    followTags = true
-    autoSetupRemote = true
-
-[pull]
-    rebase = true
-
-[rebase]
-    autoStash = true
-    updateRefs = true
-    missingCommitsCheck = error
-
-[fetch]
-    prune = true
-    pruneTags = true
-    parallel = 0
-
-[status]
-    showUntrackedFiles = all
-    submoduleSummary = true
-
+# ──────────────────────────────────────────────────────────────────────────
+# BRANCH
+# ──────────────────────────────────────────────────────────────────────────
 [branch]
-    # Sort branches by most recently committed
-    # '-' prefix means reverse order (newest first)
-    # Affects output of 'git branch' and branch completion
-    sort = -committerdate
-    
-    # Automatically configure new branches to use rebase instead of merge
-    # When pulling, use 'git rebase' instead of 'git merge'
-    # Helps maintain a cleaner, linear history
+    sort            = -committerdate   # List branches by most recent commit first
     autoSetupRebase = always
 
+# ──────────────────────────────────────────────────────────────────────────
+# INIT
+# ──────────────────────────────────────────────────────────────────────────
 [init]
-    # Set the default branch name for new repositories
-    # Changed from 'master' to 'main' as per modern conventions
-    # This affects 'git init' command
     defaultBranch = main
 
+# ──────────────────────────────────────────────────────────────────────────
+# TRANSFER
+# ──────────────────────────────────────────────────────────────────────────
 [transfer]
-    # Verify object integrity during transfers
-    # Checks for corruption when pushing/fetching
-    # Increases safety but slightly reduces performance
-    # Recommended for maintaining repository integrity
-    fsckObjects = true
+    fsckObjects = true  # Verify object integrity during push/fetch
 
+# ──────────────────────────────────────────────────────────────────────────
+# MAINTENANCE
+# ──────────────────────────────────────────────────────────────────────────
 [maintenance]
-    # Automatically run maintenance tasks in the background
-    # Tasks include: gc, commit-graph, prefetch, loose-objects, incremental-repack
-    auto = true
-    
-    # Use incremental strategy for maintenance tasks
-    # - Runs smaller, more frequent maintenance operations
-    # - Better for active repositories
-    # - Reduces impact on system resources
-    # - Alternative to 'strategy = legacy' which runs all tasks at once
-    strategy = incremental
+    auto     = true        # Auto-maintenance in background
+    strategy = incremental # Incremental maintenance approach
 
+# ──────────────────────────────────────────────────────────────────────────
+# LOG
+# ──────────────────────────────────────────────────────────────────────────
 [log]
-    # Show shorter commit hashes in log output (e.g., 2f3d4e9 instead of full hash)
-    abbrevCommit = true
-    
-    # Continue showing file history across renames (git log will track file even if renamed)
-    follow = true
-    
-    # Use ISO 8601 format for dates (YYYY-MM-DD HH:MM:SS +TIMEZONE)
-    # Makes dates consistent and internationally readable
-    date = iso
+    abbrevCommit = true   # Show short commit hashes
+    follow       = true   # Continue history across renames
+    date         = iso    # ISO date format in logs
 
+# ──────────────────────────────────────────────────────────────────────────
+# ADVICE
+# ──────────────────────────────────────────────────────────────────────────
 [advice]
-    # Disable warning when running add command without path
-    addEmptyPathspec = false
+    addEmptyPathspec      = false
+    pushNonFastForward    = false
+    statusHints           = false
+    commitBeforeMerge     = false
+    resolveConflict       = true
 
-    # Disable warning when pushing non-fast-forward updates
-    pushNonFastForward = false
-
-    # Disable hints about staging/unstaging in status output
-    statusHints = false
-
-    # Disable suggestion to commit before merge
-    commitBeforeMerge = false
-
-    # Enable advice about how to resolve merge conflicts
-    resolveConflict = true
-
+# ──────────────────────────────────────────────────────────────────────────
+# PROTOCOL
+# ──────────────────────────────────────────────────────────────────────────
 [protocol]
     version = 2
 
+# ──────────────────────────────────────────────────────────────────────────
+# GARBAGE COLLECTION
+# ──────────────────────────────────────────────────────────────────────────
 [gc]
-    auto = 256
-    autoDetach = true
-    pruneExpire = 2.weeks.ago
+    auto         = 256
+    autoDetach   = true
+    pruneExpire  = 2.weeks.ago
 
+# ──────────────────────────────────────────────────────────────────────────
+# GITFLOW (IF YOU USE GIT FLOW)
+# ──────────────────────────────────────────────────────────────────────────
 [gitflow "branch"]
     master = main
-    develop = develop
+    develop= develop
 
 [gitflow "prefix"]
-    feature = feature/
-    bugfix = bugfix/
-    release = release/
-    hotfix = hotfix/
-    support = support/
+    feature    = feature/
+    bugfix     = bugfix/
+    release    = release/
+    hotfix     = hotfix/
+    support    = support/
     versiontag = v
